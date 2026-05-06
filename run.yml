@@ -1,0 +1,25 @@
+name: CSV API Runner
+
+on:
+  workflow_dispatch:   # manual run
+  schedule:
+    - cron: "0 * * * *"   # every 1 hour
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install deps
+        run: npm install csv-parser node-fetch
+
+      - name: Run script
+        run: node script.js
